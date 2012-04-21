@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" href="../assets/css/bootstrap.css" th:href="@{/assets/css/bootstrap.css}" />
+	<link rel="stylesheet" href="../assets/css/thymeleaf-demo.css" th:href="@{/assets/css/thymeleaf-demo.css}" />
+</head>
+<body>
+<div class="container">
+	<br/>
+	<br/>
+	<br/>
+	
+	<div class="hero-unit span9">
+	    <h1>AjaxSessionExpiration demo !</h1>
+	    <p>This is a simple demo to demonstrate how to intercept user session expiration in Ajax</p>
+	    <p>
+	    	<a class="ajaxLink" href="#">
+	    		Put the mouse on this link for Ajax call ...
+	    	</a>
+	    </p>
+    </div>
+    <div style="display: none;">
+    	<div id="popoverTemplate">
+			<div class="popover" >
+				<div class="arrow"></div>
+				<div class="popover-inner" style="background-color: white;">
+					<h4 style="text-align: center;">Ajax Popover</h4>
+					<div class="popoverContent" style="text-align: center;">
+						<br/>
+						Ajax Call ...<br/><br/>
+						<img src="/assets/img/ajax.gif" th:src="@{/assets/img/ajax.gif}"></img>
+						<br/>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>	
+	<div class="modal" id="sessionTimeOutModal" style="display: none;">
+	    <div class="modal-header">
+		    <a class="close" data-dismiss="modal">&times;</a>
+		    <h3>Security Session Timeout</h3>
+		</div>
+		<div class="modal-body">
+		    <p>Your security session has expired, do you want to login again ?</p>
+		</div>
+		<div class="modal-footer">
+		    <a href="#" class="btn btn-primary redirectToLogin">Re-login</a>
+		    <a href="#" class="btn" data-dismiss="modal">Ignore</a>
+	    </div>
+	</div>	
+    <script src="assets/js/jquery.js" th:src="@{/assets/js/jquery.js}"></script>
+    <script src="assets/js/bootstrap.js" th:src="@{/assets/js/bootstrap.js}"></script>
+	<script src="assets/js/ajaxSessionExpiration.js" th:src="@{/assets/js/ajaxSessionExpiration.js}"></script>
+</div>
+</body>
+</html>

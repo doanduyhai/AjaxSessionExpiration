@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" href="../assets/css/bootstrap.css" th:href="@{/assets/css/bootstrap.css}" />
+</head>
+<body>
+<div class="container">
+	<br/>
+	<br/>
+	<br/>
+	<div class="span4 offset4">
+		<h1>Authentication</h1>
+
+		<form action="authentication" th:action="@{/authentication}" method="post" class="well">
+			<fieldset>
+            	<label>Login :</label>
+                <input id="j_username" name="j_username"
+                   	type="text" required="required" autofocus="autofocus" class="input span3"
+                    placeholder="Your login..."/>
+                <label>Password :</label>
+                <input id="j_password" name="j_password"
+                  	type="password" required="required" class="input span3"
+                    placeholder="Your password..."/>
+			</fieldset>
+            <button type="submit" class="btn btn-success">Authenticate</button>
+		</form>
+    </div>
+	<footer id="center-footer" th:fragment="footer">
+   		<div id="footerText" class="span12" style="text-align: center; position: fixed;	bottom: 0;" >Copyright 2012 <a href="http://doanduyhai.wordpress.com">doanduyhai</a> |
+       	 	<a href="https://github.com/doanduyhai/AjaxSessionExpiration">Fork AjaxSessionExpiration on Github</a> |
+        	<a href="https://twitter.com/#!/doanduyhai">Follow @doanduyhai on Twitter</a>
+   		</div>
+	</footer>     
+</div>
+</body>
+</html>
