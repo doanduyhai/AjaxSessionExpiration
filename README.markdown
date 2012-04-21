@@ -4,9 +4,9 @@ AjaxSessionExpiration Demo
 Presentation
 ------------------
 
- This is a demo project for ThymeLeaf integration with Spring MVC 3.
+ This is a demo project for Ajax Session Expiration handling.
  
- This demo is a support for the following articles
+ This demo is a support for the following article
  
   [Spring Security part VI : Session Timeout handling for Ajax calls] (http://doanduyhai.wordpress.com/2012/04/21/spring-security-part-vi-session-timeout-handling-for-ajax-calls/)
  
