@@ -16,8 +16,6 @@
 
 	<beans:bean id="ajaxTimeoutRedirectFilter" class="doan.ajaxsessionexpiration.demo.security.AjaxTimeoutRedirectFilter">
 		<beans:property name="customSessionExpiredErrorCode" value="901"/>
-		<beans:property name="restString" value="/rest"/>
-		<beans:property name="restStringPatternMode" value="PREFIX"/>
 	</beans:bean>
 			
     <http auto-config="true" use-expressions="true">

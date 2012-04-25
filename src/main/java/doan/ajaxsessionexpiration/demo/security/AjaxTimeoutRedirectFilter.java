@@ -1,7 +1,6 @@
 package doan.ajaxsessionexpiration.demo.security;
 
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -20,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.ThrowableAnalyzer;
 import org.springframework.security.web.util.ThrowableCauseExtractor;
 import org.springframework.web.filter.GenericFilterBean;
-import org.thymeleaf.util.StringUtils;
 
 public class AjaxTimeoutRedirectFilter extends GenericFilterBean
 {
@@ -31,12 +29,6 @@ public class AjaxTimeoutRedirectFilter extends GenericFilterBean
 	private AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();
 
 	private int customSessionExpiredErrorCode = 901;
-
-	private String restString;
-
-	private RestPatternMode restStringPatternMode;
-
-	private Pattern restPattern;
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
@@ -73,9 +65,9 @@ public class AjaxTimeoutRedirectFilter extends GenericFilterBean
 					if (authenticationTrustResolver.isAnonymous(SecurityContextHolder.getContext().getAuthentication()))
 					{
 						logger.info("User session expired or not logged in yet");
-						String url = ((HttpServletRequest) request).getPathInfo();
+						String ajaxHeader = ((HttpServletRequest) request).getHeader("X-Requested-With");
 
-						if (url != null && this.restPattern.matcher(url).matches())
+						if ("XMLHttpRequest".equals(ajaxHeader))
 						{
 							logger.info("Ajax call detected, send {} error code", this.customSessionExpiredErrorCode);
 							HttpServletResponse resp = (HttpServletResponse) response;
@@ -121,54 +113,5 @@ public class AjaxTimeoutRedirectFilter extends GenericFilterBean
 	public void setCustomSessionExpiredErrorCode(int customSessionExpiredErrorCode)
 	{
 		this.customSessionExpiredErrorCode = customSessionExpiredErrorCode;
-	}
-
-	public void setRestString(String restString)
-	{
-		this.restString = restString;
-	}
-
-	public void setRestStringPatternMode(RestPatternMode restStringPatternMode)
-	{
-		this.restStringPatternMode = restStringPatternMode;
-	}
-
-	@Override
-	public void afterPropertiesSet() throws ServletException
-	{
-		super.afterPropertiesSet();
-		if (StringUtils.isEmpty(this.restString))
-		{
-			throw new IllegalArgumentException(" The 'restString' property should be set");
-		}
-		if (this.restStringPatternMode == null)
-		{
-			throw new IllegalArgumentException(" The 'restStringPatternMode' property should be set");
-		}
-
-		if (this.restStringPatternMode == RestPatternMode.PREFIX)
-		{
-			this.restPattern = Pattern.compile("^" + this.restString + ".*$");
-		}
-		else if (this.restStringPatternMode == RestPatternMode.SUFFIX)
-		{
-			this.restPattern = Pattern.compile("^.+" + this.restString + "$");
-		}
-		else if (this.restStringPatternMode == RestPatternMode.CONTAINS)
-		{
-			this.restPattern = Pattern.compile("^.+" + this.restString + ".+$");
-		}
-		else
-		{
-			throw new IllegalArgumentException(" The 'restPattern' property possible values are: {'PREFIX','SUFFIX','CONTAINS'}");
-		}
-
-	}
-
-	public enum RestPatternMode
-	{
-		PREFIX,
-		SUFFIX,
-		CONTAINS
 	}
 }
